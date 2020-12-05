@@ -23,7 +23,6 @@
 #
 # @param packages
 #   Install packages with scoop.
-
 class scoop (
   Enum['present', 'absent'] $ensure = 'present',
   Array[String] $buckets = [],

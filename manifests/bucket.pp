@@ -24,7 +24,6 @@
 #
 # @param url
 #   Specifies the URL where the bucket's content is found. Defaults to undef, which means it should be a known bucket.
-
 define scoop::bucket (
   Enum['present', 'absent'] $ensure = 'present',
   Optional[String] $url = undef,

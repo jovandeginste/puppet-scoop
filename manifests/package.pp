@@ -13,7 +13,6 @@
 # @param ensure
 #   Specifies whether to create the bucket. Valid values are 'present', 'absent'. Defaults to 'present'.
 #
-
 define scoop::package (
   Enum['present', 'absent'] $ensure = 'present',
 ) {
