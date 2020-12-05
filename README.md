@@ -71,7 +71,7 @@ class { 'scoop':
 ### Remove scoop from the system
 
 ```puppet
-class { 'ntp':
+class { 'scoop':
   ensure => absent,
 }
 ```
