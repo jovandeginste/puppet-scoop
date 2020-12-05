@@ -1,5 +1,5 @@
 {
-  "name": "jovandeginste/puppet-scoop",
+  "name": "jovandeginste-scoop",
   "version": "0.1.0",
   "author": "Jo Vandeginste",
   "summary": "",
@@ -28,7 +28,7 @@
       "version_requirement": ">= 5.5.10 < 7.0.0"
     }
   ],
-  "pdk-version": "1.15.0",
+  "pdk-version": "1.18.1",
   "template-url": "pdk-default#1.15.0",
   "template-ref": "tags/1.15.0-0-g0bc522e"
 }
