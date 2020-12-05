@@ -18,13 +18,7 @@
 
 ### `scoop`
 
-class { 'scoop':
-  packages => [ 'firefox', 'ripgrep' ],
-  buckets  => [ 'extras' ],
-  url_buckets => {
-    'wangzq' => 'https://github.com/wangzq/scoop-bucket'
-  },
-}
+Installs Scoop, Scoop buckets and packages
 
 * **See also**
   * https://scoop.sh
@@ -34,7 +28,13 @@ class { 'scoop':
 ##### Basic usage
 
 ```puppet
-
+class { 'scoop':
+  packages => [ 'firefox', 'ripgrep' ],
+  buckets  => [ 'extras' ],
+  url_buckets => {
+    'wangzq' => 'https://github.com/wangzq/scoop-bucket'
+  },
+}
 ```
 
 #### Parameters
