@@ -1,4 +1,7 @@
 # @summary Installs or uninstalls Scoop
+#
+# @api private
+#
 class scoop::install {
   $tester = 'try { if(Get-Command scoop) { exit 1 } } catch { exit 0 }'
 
