@@ -1,13 +1,13 @@
 # @summary Installs Scoop, Scoop buckets and packages
 #
 # @example Basic usage
-# class { 'scoop':
-#   packages => [ 'firefox', 'ripgrep' ],
-#   buckets  => [ 'extras' ],
-#   url_buckets => {
-#     'wangzq' => 'https://github.com/wangzq/scoop-bucket'
-#   },
-# }
+#   class { 'scoop':
+#     packages => [ 'firefox', 'ripgrep' ],
+#     buckets  => [ 'extras' ],
+#     url_buckets => {
+#       'wangzq' => 'https://github.com/wangzq/scoop-bucket'
+#     },
+#   }
 #
 # @see https://scoop.sh
 #
