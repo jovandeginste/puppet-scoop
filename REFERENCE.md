@@ -6,8 +6,13 @@
 
 ### Classes
 
+#### Public Classes
+
 * [`scoop`](#scoop): Installs Scoop, Scoop buckets and packages
-* [`scoop::install`](#scoopinstall): Installs or uninstalls Scoop
+
+#### Private Classes
+
+* `scoop::install`: Installs or uninstalls Scoop
 
 ### Defined types
 
@@ -73,10 +78,6 @@ Data type: `Array[String]`
 Install packages with scoop.
 
 Default value: `[]`
-
-### `scoop::install`
-
-Installs or uninstalls Scoop
 
 ## Defined types
 
