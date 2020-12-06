@@ -31,24 +31,26 @@ define scoop::bucket (
 ) {
   include ::scoop::install
 
-  $tester = "if(scoop bucket list | Select-String -Pattern '^${name}$' ) { exit 1 }"
+  $is_configured = member($facts['scoop']['buckets'], $name)
 
   case $ensure {
     'absent': {
-      exec { "scoop bucket rm ${name}":
-        command  => "scoop bucket rm '${name}'",
-        unless   => $tester,
-        provider => 'powershell',
+      if $is_configured {
+        exec { "scoop bucket rm ${name}":
+          command  => "scoop bucket rm '${name}'",
+          provider => 'powershell',
+        }
       }
     }
     default: {
       # Empty url is ok; it then adds it from the "known" list
       # https://github.com/lukesampson/scoop/blob/master/buckets.json
 
-      exec { "scoop bucket add ${name}":
-        command  => "scoop bucket add '${name}' '${url}'",
-        onlyif   => $tester,
-        provider => 'powershell',
+      unless $is_configured {
+        exec { "scoop bucket add ${name}":
+          command  => "scoop bucket add '${name}' '${url}'",
+          provider => 'powershell',
+        }
       }
     }
   }

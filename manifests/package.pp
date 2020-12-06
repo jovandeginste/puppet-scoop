@@ -18,21 +18,23 @@ define scoop::package (
 ) {
   include ::scoop::install
 
-  $tester = "if(scoop info '${name}' | Select-String -Pattern '^Installed: No$' ) { exit 1 }"
+  $is_installed = has_key($facts['scoop']['packages'], $name)
 
   case $ensure {
     'absent': {
-      exec { "scoop uninstall ${name}":
-        command  => "scoop uninstall '${name}'",
-        onlyif   => $tester,
-        provider => 'powershell',
+      if $is_installed {
+        exec { "scoop uninstall ${name}":
+          command  => "scoop uninstall '${name}'",
+          provider => 'powershell',
+        }
       }
     }
     default: {
-      exec { "scoop install ${name}":
-        command  => "scoop install '${name}'",
-        unless   => $tester,
-        provider => 'powershell',
+      unless $is_installed {
+        exec { "scoop install ${name}":
+          command  => "scoop install '${name}'",
+          provider => 'powershell',
+        }
       }
     }
   }
