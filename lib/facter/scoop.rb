@@ -1,5 +1,16 @@
 Facter.add('scoop') do
+  setcode do
+    {
+      buckets: [],
+      packages: {},
+    }
+  end
+end
+
+Facter.add('scoop') do
   confine osfamily: :windows
+  confine { Facter::Core::Execution.which('scoop') }
+
   setcode do
     buckets = Facter::Core::Execution.exec('scoop bucket list').split(%r{\r?\n})
 
