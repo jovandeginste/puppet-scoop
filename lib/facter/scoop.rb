@@ -12,9 +12,9 @@ Facter.add('scoop') do
   confine { Facter::Core::Execution.which('scoop') }
 
   setcode do
-    buckets = Facter::Core::Execution.exec('scoop bucket list').split(%r{\r?\n})
+    buckets = Facter::Core::Execution.exec('scoop bucket list').strip.split(%r{\r?\n})
 
-    package_list = Facter::Core::Execution.exec('scoop export').split(%r{\r?\n})
+    package_list = Facter::Core::Execution.exec('scoop export').strip.split(%r{\r?\n})
 
     packages = {}
     package_list.each do |line|
