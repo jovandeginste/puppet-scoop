@@ -23,17 +23,24 @@ define scoop::package (
   case $ensure {
     'absent': {
       if $is_installed {
-        exec { "scoop uninstall ${name}":
-          command  => "scoop uninstall '${name}'",
-          provider => 'powershell',
+        exec { "uninstall ${name}":
+          command     => "${scoop::set_path}; ${scoop::scoop_exec} uninstall '${name}' --global",
+          environment => [
+            "SCOOP=${scoop::basedir}",
+          ],
+          provider    => 'powershell',
         }
       }
     }
     default: {
       unless $is_installed {
-        exec { "scoop install ${name}":
-          command  => "scoop install '${name}'",
-          provider => 'powershell',
+        exec { "install ${name}":
+          command     => "${scoop::set_path}; ${scoop::scoop_exec} install '${name}' --global",
+          environment => [
+            "SCOOP=${scoop::basedir}",
+          ],
+          provider    => 'powershell',
+          logoutput   => true,
         }
       }
     }

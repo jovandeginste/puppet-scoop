@@ -26,24 +26,30 @@
 #
 class scoop (
   Enum['present', 'absent'] $ensure = 'present',
+  String $basedir = 'c:\ProgramData\scoop',
   Array[String] $buckets = [],
   Hash[String, String] $url_buckets = {},
   Array[String] $packages = [],
 ) {
+  $scoop_exec = "${scoop::basedir}\\shims\\scoop.ps1"
+  $set_path = "\$env:Path += '${scoop::basedir}\\shims'"
+
   include ::scoop::install
 
-  scoop::bucket { $scoop::buckets:
-    ensure => present,
-  }
-
-  $scoop::url_buckets.each |$bucket, $url| {
-    scoop::bucket { $bucket:
+  if ($ensure == 'present') {
+    scoop::bucket { $scoop::buckets:
       ensure => present,
-      url    => $url,
     }
-  }
 
-  scoop::package { $scoop::packages:
-    ensure  => present,
+    $scoop::url_buckets.each |$bucket, $url| {
+      scoop::bucket { $bucket:
+        ensure => present,
+        url    => $url,
+      }
+    }
+
+    scoop::package { $scoop::packages:
+      ensure  => present,
+    }
   }
 }

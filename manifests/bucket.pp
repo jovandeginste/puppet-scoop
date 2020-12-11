@@ -36,9 +36,12 @@ define scoop::bucket (
   case $ensure {
     'absent': {
       if $is_configured {
-        exec { "scoop bucket rm ${name}":
-          command  => "scoop bucket rm '${name}'",
-          provider => 'powershell',
+        exec { "remove bucket ${name}":
+          command     => "${scoop::set_path}; ${scoop::scoop_exec} bucket rm '${name}'",
+          environment => [
+            "SCOOP=${scoop::basedir}",
+          ],
+          provider    => 'powershell',
         }
       }
     }
@@ -47,9 +50,13 @@ define scoop::bucket (
       # https://github.com/lukesampson/scoop/blob/master/buckets.json
 
       unless $is_configured {
-        exec { "scoop bucket add ${name}":
-          command  => "scoop bucket add '${name}' '${url}'",
-          provider => 'powershell',
+        exec { "add bucket ${name}":
+          command     => "${scoop::set_path}; ${scoop::scoop_exec} bucket add '${name}' '${url}'",
+          environment => [
+            "SCOOP=${scoop::basedir}",
+          ],
+          provider    => 'powershell',
+          logoutput   => true,
         }
       }
     }

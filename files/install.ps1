@@ -1,4 +1,16 @@
-set-executionpolicy remotesigned -scope currentuser
-[environment]::setEnvironmentVariable("SCOOP", "C:\Applications\Scoop", "Machine")
-$env:SCOOP='C:\Applications\Scoop' # with this we don't need to close and reopen the console
+[environment]::setEnvironmentVariable("SCOOP", $env:SCOOP, "Machine")
+
+Write-Output "Installing scoop to '$env:SCOOP'"
+
 Invoke-Expression (New-Object System.Net.WebClient).DownloadString("https://get.scoop.sh")
+
+$oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path
+$shim_dir = "$env:SCOOP\shims"
+
+Write-Output "Old global path: $oldpath"
+$path_array = $oldpath -split ';'
+
+if ($shim_dir -NotIn $path_array) {
+  Write-Output "Adding '$shim_dir' to global PATH"
+  Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value "$shim_dir;$oldpath"
+}
