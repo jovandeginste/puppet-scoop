@@ -83,7 +83,7 @@ Default value: `[]`
 
 Data type: `String`
 
-
+Location where scoop should be installed (global)
 
 Default value: `'c:\ProgramData\scoop'`
 
