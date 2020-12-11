@@ -1,7 +1,15 @@
 # Scoop
 
-#### Table of Contents
+[![GitHub license](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/jovandeginste/puppet-scoop/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/jovandeginste/puppet-scoop.svg)](https://github.com/jovandeginste/puppet-scoop/issues)
+[![GitHub forks](https://img.shields.io/github/forks/jovandeginste/puppet-scoop.svg)](https://github.com/jovandeginste/puppet-scoop/network)
+[![GitHub stars](https://img.shields.io/github/stars/jovandeginste/puppet-scoop.svg)](https://github.com/jovandeginste/puppet-scoop/stargazers)
 
+[![Puppet Forge](https://img.shields.io/puppetforge/v/jovandeginste/scoop.svg)](https://forge.puppetlabs.com/jovandeginste/scoop)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/jovandeginste/scoop.svg)](https://forge.puppetlabs.com/jovandeginste/scoop)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/jovandeginste/scoop.svg)](https://forge.puppetlabs.com/jovandeginste/scoop)
+
+#### Table of Contents
 
 1. [Module Description - What the module does and why it is useful](#module-description)
 1. [Setup - The basics of getting started with scoop](#setup)
