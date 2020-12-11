@@ -13,10 +13,6 @@ Facter.add('scoop') do
   Win32::Registry::HKEY_LOCAL_MACHINE.open(regkey_path) do |regkey|
     basedir = regkey['SCOOP']
   end
-  path = nil
-  Win32::Registry::HKEY_LOCAL_MACHINE.open(regkey_path) do |regkey|
-    path = regkey['PATH']
-  end
 
   confine osfamily: :windows
   confine { basedir }

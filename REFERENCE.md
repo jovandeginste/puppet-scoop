@@ -79,6 +79,14 @@ Install packages with scoop.
 
 Default value: `[]`
 
+##### `basedir`
+
+Data type: `String`
+
+
+
+Default value: `'c:\ProgramData\scoop'`
+
 ## Defined types
 
 ### `scoop::bucket`
