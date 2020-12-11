@@ -18,39 +18,31 @@ Facter.add('scoop') do
     path = regkey['PATH']
   end
 
-
   confine osfamily: :windows
   confine { basedir }
 
   setcode do
     scoop_exec = "#{basedir}\\shims\\scoop"
-    ENV["SCOOP"] = basedir
-    ENV["PATH"] += File::PATH_SEPARATOR + "#{basedir}\\shims"
+    ENV['SCOOP'] = basedir
+    ENV['PATH'] += File::PATH_SEPARATOR + "#{basedir}\\shims"
 
-    buckets = begin
-      (Facter::Core::Execution.exec("powershell.exe -Command \"scoop bucket list\"") || "").strip.split(%r{\r?\n})
-    rescue Exception => e
-      e
-    end
+    buckets = (Facter::Core::Execution.exec('powershell.exe -Command "scoop bucket list"') || '').strip.split(%r{\r?\n})
 
-    package_list = begin
-       (Facter::Core::Execution.exec("powershell.exe -Command \"scoop export\"") || "").strip.split(%r{\r?\n})
-    rescue
-      []
-    end
+    package_list = (Facter::Core::Execution.exec('powershell.exe -Command "scoop export"') || '').strip.split(%r{\r?\n})
 
     packages = {}
-    matcher = /^(?<name>[^ ]+) \(v:(?<version>[^ ]+)\)( ?(?<global>\*global\*)?)( \[(?<bucket>[^\]]+)\])?$/
+    matcher = %r{^(?<name>[^ ]+) \(v:(?<version>[^ ]+)\)( ?(?<global>\*global\*)?)( \[(?<bucket>[^\]]+)\])?$}
 
     package_list.each do |line|
-      if result = line.match(matcher)
-        packages[result[:name]] = {
-          name: result[:name],
-          version: result[:version],
-          bucket: result[:bucket],
-          global: result[:global] == '*global*',
-        }
-      end
+      result = line.match(matcher)
+      next unless result
+
+      packages[result[:name]] = {
+        name: result[:name],
+        version: result[:version],
+        bucket: result[:bucket],
+        global: result[:global] == '*global*',
+      }
     end
 
     {
