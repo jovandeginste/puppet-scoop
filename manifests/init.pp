@@ -24,6 +24,9 @@
 # @param packages
 #   Install packages with scoop.
 #
+# @param basedir
+#   Location where scoop should be installed (global)
+#
 class scoop (
   Enum['present', 'absent'] $ensure = 'present',
   String $basedir = 'c:\ProgramData\scoop',

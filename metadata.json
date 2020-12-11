@@ -1,6 +1,6 @@
 {
   "name": "jovandeginste-scoop",
-  "version": "0.1.6",
+  "version": "0.1.8",
   "author": "Jo Vandeginste",
   "summary": "The scoop module installs Scoop, Scoop buckets and packages",
   "license": "Apache-2.0",
