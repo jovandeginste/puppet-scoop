@@ -40,7 +40,7 @@ Facter.add('scoop') do
     end
 
     packages = {}
-    matcher = /^(?<name>[^ ]+) \(v:(?<version>[^ ]+)\)( ?(?<global>\*global\*)?)( \[(?<bucket>[^\]]+)\])?$/
+    matcher = /^(?<name>[^ ]+) \(v:(?<version>[^ ]*)\)( ?(?<global>\*global\*)?)( \[(?<bucket>[^\]]+)\])?$/
 
     package_list.each do |line|
       if result = line.match(matcher)

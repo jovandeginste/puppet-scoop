@@ -19,6 +19,10 @@ define scoop::package (
   include ::scoop::install
 
   $is_installed = has_key($facts['scoop']['packages'], $name)
+  $install_failed = $is_installed ? {
+    true    => $facts['scoop']['packages'][$name]['bucket'] == '',
+    default => false,
+  }
 
   case $ensure {
     'absent': {
@@ -33,7 +37,19 @@ define scoop::package (
       }
     }
     default: {
-      unless $is_installed {
+      if $install_failed {
+        exec { "uninstall ${name}":
+          command     => "${scoop::set_path}; ${scoop::scoop_exec} uninstall '${name}' --global",
+          environment => [
+            "SCOOP=${scoop::basedir}",
+          ],
+          provider    => 'powershell',
+          logoutput   => true,
+          before      => Exec["install ${name}"],
+        }
+      }
+
+      if $install_failed or !$is_installed {
         exec { "install ${name}":
           command     => "${scoop::set_path}; ${scoop::scoop_exec} install '${name}' --global",
           environment => [
