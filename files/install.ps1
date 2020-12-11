@@ -1,4 +1,4 @@
-[environment]::setEnvironmentVariable("SCOOP", $env:SCOOP, "Machine")
+[environment]::setEnvironmentVariable("SCOOP_GLOBAL", $env:SCOOP, "Machine")
 
 Write-Output "Installing scoop to '$env:SCOOP'"
 
