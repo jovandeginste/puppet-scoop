@@ -8,16 +8,16 @@ Facter.add('scoop') do
 end
 
 Facter.add('scoop') do
-  regkey_path = 'System\CurrentControlSet\Control\Session Manager\Environment'
-  basedir = nil
-  Win32::Registry::HKEY_LOCAL_MACHINE.open(regkey_path) do |regkey|
-    basedir = regkey['SCOOP']
-  end
-
   confine osfamily: :windows
-  confine { basedir }
-
   setcode do
+    confine { basedir }
+
+    regkey_path = 'System\CurrentControlSet\Control\Session Manager\Environment'
+    basedir = nil
+    Win32::Registry::HKEY_LOCAL_MACHINE.open(regkey_path) do |regkey|
+      basedir = regkey['SCOOP']
+    end
+
     scoop_exec = "#{basedir}\\shims\\scoop"
     ENV['SCOOP'] = basedir
     ENV['PATH'] += File::PATH_SEPARATOR + "#{basedir}\\shims"
