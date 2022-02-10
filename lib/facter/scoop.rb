@@ -9,9 +9,10 @@ end
 
 Facter.add('scoop') do
   confine osfamily: :windows
+  confine do 
+    defined? (basedir)
+  end
   setcode do
-    confine { basedir }
-
     regkey_path = 'System\CurrentControlSet\Control\Session Manager\Environment'
     basedir = nil
     Win32::Registry::HKEY_LOCAL_MACHINE.open(regkey_path) do |regkey|
